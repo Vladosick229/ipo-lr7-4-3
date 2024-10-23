@@ -11,19 +11,28 @@ with open('cars.json', 'w', encoding='utf-8') as file:
   json.dump(cars, file, ensure_ascii=False, indent=4)
   
 count=0
-res=input("Что вы хотите сделать, выберите цифру:\n1-Вывести все записи\n2-Вывести запись по ID \n3-Добавить запись о автомобиле \n4-Удалить запись по автомобилю\n5-Выйти из программы\n")
 
-if res=="1":
-    with open('cars.json', 'r', encoding='utf-8') as file:
+while True:
+    print("\nЧто вы хотите сделать?")
+    print("1. Вывести все записи")
+    print("2. Вывести запись по полю")
+    print("3. Добавить запись")
+    print("4. Удалить запись по полю")
+    print("5. Выйти из программы")
+
+    res = input("\nВыберите пункт из предложенного списка: ")
+
+    if res=="1":
+        with open('cars.json', 'r', encoding='utf-8') as file:
             data = json.load(file)
             for car in data:
                 print(f"№: {car['id']}, Модель: {car['name']}, Производитель: {car['manufacturer']}, Заправляется бензином: {car['is_petrol']}, Объем бака: {car['tank_volume']}")
                 
-    count+=1
+        count+=1
         
-elif res=="2":
-    num=input("Введите номер записи по которой вы хотите сделать вывод информации:\n")
-    with open('cars.json', 'r', encoding='utf-8') as file:
+    elif res=="2":
+        num=input("Введите номер записи по которой вы хотите сделать вывод информации:\n")
+        with open('cars.json', 'r', encoding='utf-8') as file:
             data = json.load(file)
             found = False
             for car in data:
@@ -35,23 +44,52 @@ elif res=="2":
                     break
             if not found:
                 print("\n=============== Не найдено ===============")
-    count+=1
+        count+=1
                 
-elif res=="3":
-   car_add = len(cars) + 1
-while True:#цикл while
-    id=input("Введите номер записи;")
-    name=input("Введите название модели автомобиля:")
-    manufacturer=input("Введите название производителя:")
-    is_petrol=input("Заправляется бензином?(True/False):")=='True'
-    tank_volume = int(input("Введите объем бака: "))
-    with open('cars.json', 'r+', encoding='utf-8') as file:
+    elif res=="3":
+        new_id=input("Введите номер записи;")
+        new_name=input("Введите название модели автомобиля:")
+        new_manufacturer=input("Введите название производителя:")
+        new_is_petrol=input("Заправляется бензином?(True/False):")=='True'
+        new_tank_volume = int(input("Введите объем бака: ")) 
+           
+        new_car = {
+            "id": new_id,
+            "name": new_name,
+            "manufacturer": new_manufacturer,
+            "is_petrol": new_is_petrol,
+            "tank_volume": new_tank_volume
+        }
+
+        with open('cars.json', 'r+', encoding='utf-8') as file:
             data = json.load(file)
-            data.append(car_add)
+            data.append(new_car)
             file.seek(0)
             json.dump(data, file, ensure_ascii=False, indent=4)
+            
+        count+=1
     
-    cars[car_add] = {"id": id, "name": name, "manufacturer": manufacturer, "is_petrol": is_petrol, "tank_volume": tank_volume}
-    car_add += 1
-    count+=1
-    
+    elif  res =="4":
+     deletе = input("Введите номер записи которую вы хотите удалить: ")
+     with open('cars.json', 'r', encoding='utf-8') as file:
+        data = json.load(file)
+        found = False
+        for car in data:
+                if car['id'] == deletе:
+                    data.remove(car)
+                    found = True
+                    break
+        if not found:
+                print("\n=============== Не найдено ===============")
+        else:
+                file.seek(0)
+                file.truncate()
+                json.dump(data, file, ensure_ascii=False, indent=4)
+
+        count+=1 
+           
+    elif res =="5":
+     print(f"\nКоличество выполненных операций с записями: {count}")
+     break
+    else:
+     print("Неправильный ввод, попробуйте снова.")               
