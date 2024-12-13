@@ -27,7 +27,7 @@ def output_for_recording_by_id():
             print("Введено не число")
 
             
-def adding_a_record(cars):
+def adding_a_record():
     with open('cars.json', 'r+', encoding='utf-8') as file:
         data = json.load(file)
 
