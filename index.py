@@ -1,17 +1,18 @@
 import json
  
 
-def output_all_records(cars):
+def output_all_records():
  with open('cars.json', 'r', encoding='utf-8') as file:
             data = json.load(file)
             for car in data:
                 print(f"№: {car['id']}, Модель: {car['name']}, Производитель: {car['manufacturer']}, Заправляется бензином: {car['is_petrol']}, Объем бака: {car['tank_volume']}")
                 
-def output_for_recording_by_id(cars):
+def output_for_recording_by_id():
         num=input("Введите номер записи по которой вы хотите сделать вывод информации:\n")
         if num.isdigit():
             with open('cars.json', 'r', encoding='utf-8') as file:
                 data = json.load(file)
+
                 found = False
                 for car in data:
                     if car['id'] == num:
@@ -27,7 +28,7 @@ def output_for_recording_by_id(cars):
             print("Введено не число")
 
             
-def adding_a_record(cars):
+def adding_a_record():
     with open('cars.json', 'r+', encoding='utf-8') as file:
         data = json.load(file)
 
@@ -65,7 +66,7 @@ def adding_a_record(cars):
             print("Введите правильный объем бака.Введено не число")
 
     
-def delete_record(cars):
+def delete_record():
     delete_id = input("Введите номер записи, которую вы хотите удалить: ")
     if delete_id.isdigit():
         with open('cars.json', 'r+', encoding='utf-8') as file:
@@ -93,16 +94,6 @@ def delete_record(cars):
 def main():
      count=0
 
-     cars = [
-    {"id": "1", "name": "G-63", "manufacturer": "Mersedes", "is_petrol": True, "tank_volume": 100},
-    {"id": "2", "name": "M5-f90", "manufacturer": "BMW", "is_petrol": True, "tank_volume": 60},
-    {"id": "3", "name": "Civic", "manufacturer": "Honda", "is_petrol": False, "tank_volume": 50},
-    {"id": "4", "name": "Supra-80", "manufacturer": "Toyota", "is_petrol": True, "tank_volume": 55},
-    {"id": "5", "name": "Berezina", "manufacturer": "BMP-1", "is_petrol": False, "tank_volume": 500}
-    ]
-     with open('cars.json', 'w', encoding='utf-8') as file:
-      json.dump(cars, file, ensure_ascii=False, indent=4)
-
 
      while True:
       print("\nЧто вы хотите сделать?")
@@ -115,16 +106,16 @@ def main():
       res = input("\nВыберите пункт из предложенного списка: ")
 
       if res=="1":
-           output_all_records(cars)
+           output_all_records()
            count+=1
       elif res=="2":
-           output_for_recording_by_id(cars)
+           output_for_recording_by_id()
            count+=1
       elif res=="3":
-           adding_a_record(cars)
+           adding_a_record()
            count+=1
       elif res=="4":
-           delete_record(cars)
+           delete_record()
            count+=1
       elif res=="5":
            print(f"\nКоличество выполненных операций с записями: {count}")
