@@ -1,14 +1,5 @@
 import json
 
-cars = [
-    {"id": "1", "name": "G-63", "manufacturer": "Mersedes", "is_petrol": True, "tank_volume": 100},
-    {"id": "2", "name": "M5-f90", "manufacturer": "BMW", "is_petrol": True, "tank_volume": 60},
-    {"id": "3", "name": "Civic", "manufacturer": "Honda", "is_petrol": False, "tank_volume": 50},
-    {"id": "4", "name": "Supra-80", "manufacturer": "Toyota", "is_petrol": True, "tank_volume": 55},
-    {"id": "5", "name": "Berezina", "manufacturer": "BMP-1", "is_petrol": False, "tank_volume": 500}
-]
-with open('cars.json', 'w', encoding='utf-8') as file:
-  json.dump(cars, file, ensure_ascii=False, indent=4)
   
 count=0
 
